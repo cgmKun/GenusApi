@@ -1,6 +1,29 @@
 {
+  "name": "genusapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgmKun/GenusApi.git"
+  },
+  "author": "CGM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cgmKun/GenusApi/issues"
+  },
+  "homepage": "https://github.com/cgmKun/GenusApi#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.17.3"
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
   }
 }
