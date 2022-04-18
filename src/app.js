@@ -1,20 +1,33 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const { graphqlHTTP } = require('express-graphql')
-const { buildSchema }  = require('graphql')
+const { buildSchema, isCompositeType }  = require('graphql')
 
 const app = express();
+const defects = [];
 
 app.use(bodyParser.json());
 
 app.use('/api', graphqlHTTP({
     schema: buildSchema(`
+        type Defect {
+            _id: ID!
+            title: String!
+            description: String!
+
+        }
+
+        input DefectInput {
+            title: String!
+            description: String!
+        }
+
         type RootQuery {
-            events: [String!]!
+            defects: [Defect!]!
         }
         
         type RootMutation {
-            createEvent(name: String!): String
+            createDefect(defectInput: DefectInput): Defect
         }
 
         schema {
@@ -23,12 +36,17 @@ app.use('/api', graphqlHTTP({
         }
     `),
     rootValue: {
-        events: () => {
-            return ['Gei', 'Otro gei', 'mas geis']
+        defects: () => {
+            return defects
         },
-        createEvent: (args) => {
-            const event = args.name;
-            return event
+        createDefect: args => {
+            const defect = {
+                _id: Math.random().toString(),
+                title: args.defectInput.title,
+                description: args.defectInput.description
+            }
+            defects.push(defect)
+            return defect
         }
     },
     graphiql: true
