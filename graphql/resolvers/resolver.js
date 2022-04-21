@@ -17,7 +17,16 @@ module.exports = {
     },
     createDefect: async args => {
         const defect = new Defect({
-            title: args.defectInput.title,
+            issueKey: args.defectInput.issueKey,
+            status: args.defectInput.status,
+            priority: args.defectInput.priority,
+            severity: args.defectInput.severity,
+            projectKey: args.defectInput.projectKey,
+            issueType: args.defectInput.issueType,
+            created: args.defectInput.created,
+            assignee: args.defectInput.assignee,
+            digitalService: args.defectInput.digitalService,
+            summary: args.defectInput.summary,
             description: args.defectInput.description
         });
         let createdDefect;

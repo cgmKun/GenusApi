@@ -3,12 +3,30 @@ const { buildSchema } = require('graphql')
 module.exports = buildSchema(`
     type Defect {
         _id: ID!
-        title: String!
+        issueKey: String!
+        status: String!
+        priority: String!
+        severity: String!
+        projectKey: String!
+        issueType: String!
+        created: String!
+        assignee: String!
+        digitalService: String!
+        summary: String!
         description: String!
     }
 
     input DefectInput {
-        title: String!
+        issueKey: String!
+        status: String!
+        priority: String!
+        severity: String!
+        projectKey: String!
+        issueType: String!
+        created: String!
+        assignee: String!
+        digitalService: String!
+        summary: String!
         description: String!
     }
 
