@@ -1,6 +1,16 @@
 const { buildSchema } = require('graphql')
 
 module.exports = buildSchema(`
+    type Group {
+        _id: ID!
+        groupTitle: String!
+        sessionId: String!
+        defects: [Defect!]
+        linkedReport: Report!
+        createdAt: String!
+        updatedAt: String!
+    }
+
     type Defect {
         _id: ID!
         issueKey: String!
@@ -25,6 +35,12 @@ module.exports = buildSchema(`
         defects: [Defect!]
     }
 
+    input GroupInput {
+        groupTitle: String!
+        sessionId: String!
+        reportId: ID!
+    }
+
     input DefectInput {
         issueKey: String!
         status: String!
@@ -47,11 +63,13 @@ module.exports = buildSchema(`
 
     type RootQuery {
         defects: [Defect!]!
+        groups: [Group!]!
     }
 
     type RootMutation {
         createDefect(defectInput: DefectInput): Defect
         createReport(reportInput: ReportInput): Report
+        createGroup(groupInput: GroupInput): Group
     }
 
     schema {

@@ -1,5 +1,6 @@
 const Defect = require('../../models/defect.js');
 const Report = require('../../models/report.js');
+const Group = require('../../models/group.js');
 
 const defects = async defectIds => {
     try {
@@ -33,7 +34,9 @@ const report = async reportId => {
     }
 }
 
-module.exports = { 
+// TODO: Create a function to retrieve all the reports of the DB
+
+module.exports = {
     defects: async () => {
         try {
             const defects = await Defect.find();
@@ -47,6 +50,21 @@ module.exports = {
 
         } catch (err) {
             throw err
+        }
+    },
+    groups: async () => {
+        try {
+            const groups = await Group.find();
+            return groups.map(group => {
+                return {
+                    ...group._doc,
+                    _id: group.id,
+                    defects: defects.bind(this, group._doc.defects),
+                    linkedReport: report.bind(this, defect._doc.linkedReport)
+                };
+            });
+        } catch (err) {
+            throw err;
         }
     },
     createDefect: async args => {
@@ -114,6 +132,35 @@ module.exports = {
 
         } catch (err) {
             console.log(err);
+            throw err;
+        }
+    },
+    createGroup: async args => {
+        try {
+            const fetchedReport = await Report.findOne({ _id: args.groupInput.reportId });
+            const group = new Group({
+                groupTitle: args.groupInput.groupTitle,
+                sessionId: args.groupInput.sessionId,
+                linkedReport: fetchedReport
+            });
+            let createdGroup
+
+            const linkedReport = await Report.findById({ _id: args.groupInput.reportId });
+
+            if(!linkedReport) { 
+                throw new Error('Report not found')
+            }
+
+            const result = await group.save();
+            createdGroup = {
+                ...result._doc,
+                id: result.id,
+                linkedReport: report.bind(this, group._doc.linkedReport)
+            }
+
+            return createdGroup;
+
+        } catch (err) {
             throw err;
         }
     }
