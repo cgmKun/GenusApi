@@ -14,6 +14,15 @@ module.exports = buildSchema(`
         digitalService: String!
         summary: String!
         description: String!
+        linkedReport: Report!
+    }
+
+    type Report {
+        _id: ID!
+        reportTitle: String!
+        author: String!
+        submitDate: String!
+        defects: [Defect!]
     }
 
     input DefectInput {
@@ -30,12 +39,19 @@ module.exports = buildSchema(`
         description: String!
     }
 
+    input ReportInput {
+        reportTitle: String!
+        author: String!
+        submitDate: String!
+    }
+
     type RootQuery {
         defects: [Defect!]!
     }
 
     type RootMutation {
         createDefect(defectInput: DefectInput): Defect
+        createReport(reportInput: ReportInput): Report
     }
 
     schema {
