@@ -14,6 +14,7 @@ module.exports = buildSchema(`
         digitalService: String!
         summary: String!
         description: String!
+        linkedReport: Report!
     }
 
     type Report {
@@ -21,6 +22,7 @@ module.exports = buildSchema(`
         reportTitle: String!
         author: String!
         submitDate: String!
+        defects: [Defect!]
     }
 
     input DefectInput {

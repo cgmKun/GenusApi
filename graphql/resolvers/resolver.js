@@ -1,6 +1,37 @@
 const Defect = require('../../models/defect.js');
-const report = require('../../models/report.js');
-const Report = require('../../models/report.js')
+const Report = require('../../models/report.js');
+
+const defects = async defectIds => {
+    try {
+        const defects = await Defect.find({ _id: { $in: defectIds }});
+        defects.map( defect => {
+            return {
+                ...defect._doc,
+                _id: defect.id,
+                linkedReport: report.bind(this, defect.linkedReport)
+            };
+        });
+
+        return defects;
+
+    } catch (err) {
+        throw err;
+    }
+}
+
+const report = async reportId => {
+    try {
+        const report = await Report.findById(reportId);
+        return {
+            ...report._doc,
+            _id: report.id,
+            defects: defects.bind(this, report._doc.defects)
+        };
+
+    } catch (err) {
+        throw err;
+    }
+}
 
 module.exports = { 
     defects: async () => {
@@ -9,7 +40,8 @@ module.exports = {
             return defects.map(defect => {
                 return {
                     ...defect._doc,
-                    _id: defect.id
+                    _id: defect.id,
+                    linkedReport: report.bind(this, defect._doc.linkedReport)
                 };
             });
 
@@ -39,6 +71,7 @@ module.exports = {
             createdDefect = {
                 ...result._doc,
                 id: result._doc._id.toString(),
+                linkedReport: report.bind(this, result._doc.linkedReport)
             };
 
             const linkedReport = await Report.findById('6260b1b57f5686e2d0482767');
