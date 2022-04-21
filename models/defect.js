@@ -45,6 +45,10 @@ const defectSchema = new Schema({
     description: {
         type: String,
         required: true
+    },
+    linkedReport: { 
+        type: Schema.Types.ObjectId,
+        ref: 'Report'
     }
 });
 

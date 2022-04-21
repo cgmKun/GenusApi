@@ -16,6 +16,13 @@ module.exports = buildSchema(`
         description: String!
     }
 
+    type Report {
+        _id: ID!
+        reportTitle: String!
+        author: String!
+        submitDate: String!
+    }
+
     input DefectInput {
         issueKey: String!
         status: String!
@@ -30,12 +37,19 @@ module.exports = buildSchema(`
         description: String!
     }
 
+    input ReportInput {
+        reportTitle: String!
+        author: String!
+        submitDate: String!
+    }
+
     type RootQuery {
         defects: [Defect!]!
     }
 
     type RootMutation {
         createDefect(defectInput: DefectInput): Defect
+        createReport(reportInput: ReportInput): Report
     }
 
     schema {
