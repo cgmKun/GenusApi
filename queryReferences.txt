@@ -1,0 +1,44 @@
+// Defect Mutation 
+mutation {
+  createDefect(defectInput: {
+    issueKey: "DCM021CX0118-22389",
+    status: "Rejected",
+    priority: "Medium",
+    severity: "Critical",
+    projectKey: "DCM021CX0118",
+    issueType: "Bug",
+    created: "10/01/20 3:36",
+    assignee: "Javier Pedraza",
+    digitalService: "2. Orders & Delivery Schedule",
+    summary: "PREPROD_DS5_One Click functionality is not available on customerÂ´s side",
+    description: "One click buy functionality is not available on customers side even though the customer has the role for one click assigned in L0 console"
+  }) {
+    issueKey
+    status
+    priority
+    severity
+    projectKey
+    issueType
+    created
+    digitalService
+    summary
+    description
+  }
+}
+
+// Defects Query
+query {
+  defects {
+    _id
+    issueKey
+    status
+    priority
+    severity
+    projectKey
+    issueType
+    created
+    digitalService
+    summary
+    description
+  }
+}
