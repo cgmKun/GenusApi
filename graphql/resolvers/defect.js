@@ -27,7 +27,7 @@ module.exports = {
             digitalService: args.defectInput.digitalService,
             summary: args.defectInput.summary,
             description: args.defectInput.description,
-            linkedReport: '6260b1b57f5686e2d0482767'
+            linkedReport: args.defectInput.linkedReport
         });
         let createdDefect;
 
@@ -35,7 +35,7 @@ module.exports = {
             const result = await defect.save();
             createdDefect = transformDefect(result);
 
-            const linkedReport = await Report.findById('6260b1b57f5686e2d0482767');
+            const linkedReport = await Report.findById(result.linkedReport);
 
             if(!linkedReport) { 
                 throw new Error('Report not found')

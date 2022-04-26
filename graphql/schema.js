@@ -53,6 +53,7 @@ module.exports = buildSchema(`
         digitalService: String!
         summary: String!
         description: String!
+        linkedReport: ID!
     }
 
     input ReportInput {
