@@ -11,6 +11,10 @@ const groupSchema = new Schema(
             type: String,
             required: true
         },
+        submitDate: {
+            type: String,
+            required: true
+        },
         defects: [
             {
                 type: Schema.Types.ObjectId,
@@ -21,8 +25,7 @@ const groupSchema = new Schema(
             type: Schema.Types.ObjectId,
             ref: 'Report'
         },
-    },
-    { timestamps: true }
+    }
 );
 
 module.exports = mongoose.model('Group', groupSchema);
