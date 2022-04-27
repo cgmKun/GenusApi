@@ -64,6 +64,7 @@ module.exports = buildSchema(`
 
     type RootQuery {
         defects: [Defect!]!
+        defectsByReportId(reportId: ID!): [Defect!]!
         groups: [Group!]!
     }
 
