@@ -1,5 +1,6 @@
 const Defect = require('../../models/defect.js');
 const Report = require('../../models/report.js');
+const Group = require('../../models/group.js');
 
 const defects = async defectIds => {
     try {
@@ -39,7 +40,17 @@ const transformDefect = defect => {
     };
 }
 
+const transformGroup = group => {
+    return {
+        ...group._doc,
+        _id: group.id,
+        defects: defects.bind(this, group._doc.defects),
+        linkedReport: report.bind(this, group._doc.linkedReport)
+    };
+}
+
 exports.defects = defects;
 exports.report = report;
 exports.transformDefect = transformDefect;
 exports.transformReport = transformReport;
+exports.transformGroup = transformGroup;

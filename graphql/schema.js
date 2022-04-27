@@ -5,10 +5,9 @@ module.exports = buildSchema(`
         _id: ID!
         groupTitle: String!
         sessionId: String!
+        submitDate: String!
         defects: [Defect!]
         linkedReport: Report!
-        createdAt: String!
-        updatedAt: String!
     }
 
     type Defect {
@@ -38,7 +37,9 @@ module.exports = buildSchema(`
     input GroupInput {
         groupTitle: String!
         sessionId: String!
-        reportId: ID!
+        submitDate: String!
+        defects: [ID!]!
+        linkedReport: ID!
     }
 
     input DefectInput {
