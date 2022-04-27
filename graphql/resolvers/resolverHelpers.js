@@ -16,15 +16,19 @@ const defects = async defectIds => {
 const report = async reportId => {
     try {
         const report = await Report.findById(reportId);
-        return {
-            ...report._doc,
-            _id: report.id,
-            defects: defects.bind(this, report._doc.defects)
-        };
+        return transformReport(report);
 
     } catch (err) {
         throw err;
     }
+}
+
+const transformReport = report => {
+    return {
+        ...report._doc,
+        _id: report.id,
+        defects: defects.bind(this, report._doc.defects)
+    };
 }
 
 const transformDefect = defect => {
@@ -38,3 +42,4 @@ const transformDefect = defect => {
 exports.defects = defects;
 exports.report = report;
 exports.transformDefect = transformDefect;
+exports.transformReport = transformReport;
