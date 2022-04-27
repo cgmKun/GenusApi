@@ -14,6 +14,17 @@ module.exports = {
             throw err
         }
     },
+    defectsByReportId: async args => {
+        try {
+            const defects = await Defect.find({linkedReport: args.reportId});
+            return defects.map(defect => {
+                return transformDefect(defect);
+            });
+
+        } catch (err) {
+            throw err
+        }
+    },
     createDefect: async args => {
         const defect = new Defect({
             issueKey: args.defectInput.issueKey,
