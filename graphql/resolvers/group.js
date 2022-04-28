@@ -1,12 +1,22 @@
 const Group = require('../../models/group.js');
 const Report = require('../../models/report.js');
 const Defect = require('../../models/defect.js')
-const { transformGroup, report, defects } = require('./resolverHelpers');
+const { transformGroup } = require('./resolverHelpers');
 
 module.exports = {
     groups: async () => {
         try {
             const groups = await Group.find();
+            return groups.map(group => {
+                return transformGroup(group);
+            });
+        } catch (err) {
+            throw err;
+        }
+    },
+    groupsByReportAndSessionId: async args => {
+        try {
+            const groups = await Group.find({linkedReport: args.reportId, sessionId: args.sessionId});
             return groups.map(group => {
                 return transformGroup(group);
             });
@@ -35,6 +45,9 @@ module.exports = {
 
             const result = await group.save();
             createdGroup = transformGroup(result);
+
+            linkedReport.sessionIds.push(createdGroup.sessionId);
+            await linkedReport.save();
 
             return createdGroup;
 

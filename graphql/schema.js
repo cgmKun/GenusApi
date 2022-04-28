@@ -32,6 +32,7 @@ module.exports = buildSchema(`
         author: String!
         submitDate: String!
         defects: [Defect!]
+        sessionIds: [String!]!
     }
 
     input GroupInput {
@@ -68,6 +69,7 @@ module.exports = buildSchema(`
         defectsByReportId(reportId: ID!): [Defect!]!
         reports: [Report!]!
         groups: [Group!]!
+        groupsByReportAndSessionId(reportId: ID!, sessionId: String!): [Group!]!
     }
 
     type RootMutation {
