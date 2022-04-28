@@ -14,6 +14,12 @@ const reportSchema = new Schema({
         type: String,
         required: true
     },
+    sessionIds: [
+        {
+            type: String,
+            required: true
+        }
+    ],
     defects: [
         {
             type: Schema.Types.ObjectId,
