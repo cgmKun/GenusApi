@@ -1,4 +1,6 @@
+const Group = require('../../models/group.js');
 const Report = require('../../models/report.js');
+const Defect = require('../../models/defect.js');
 const { transformReport } = require('./resolverHelpers.js');
 
 module.exports = {
@@ -15,6 +17,7 @@ module.exports = {
     },
     createReport: async args => {
         try {
+            // Check if report already exists
             const existingReport = await Report.findOne({ reportTitle: args.reportInput.reportTitle });
             if (existingReport) {
                 throw new Error('Report Already Exists')
@@ -37,6 +40,28 @@ module.exports = {
 
         } catch (err) {
             console.log(err);
+            throw err;
+        }
+    },
+    deleteReport: async args => {
+        try {
+            // Check if report exists, if report does not exist, throw error
+            const existingReport = await Report.findOne({ _id: args.reportId });
+            if (!existingReport) { 
+                throw new Error('Report Does Not Exist');
+            }
+
+            // Response
+            let createdReport = transformReport(existingReport);
+
+            //Fetch related Defects
+            await Defect.deleteMany({ _id: { $in: existingReport.defects}});
+            await Group.deleteMany({ linkedReport: existingReport.id , sessionId: {$in: existingReport.sessionIds}});
+            await Report.deleteOne({ _id: args.reportId});
+
+            return createdReport;
+
+        } catch (err) {
             throw err;
         }
     }

@@ -1,6 +1,6 @@
 const Group = require('../../models/group.js');
 const Report = require('../../models/report.js');
-const Defect = require('../../models/defect.js')
+const Defect = require('../../models/defect.js');
 const { transformGroup } = require('./resolverHelpers');
 
 module.exports = {
@@ -37,17 +37,21 @@ module.exports = {
             });
             let createdGroup
 
+            // Validate if the Report exists
             const linkedReport = await Report.findById({ _id: args.groupInput.linkedReport });
-
             if(!linkedReport) { 
                 throw new Error('Report not found')
             }
 
+            // Save the group in the Database
             const result = await group.save();
             createdGroup = transformGroup(result);
 
-            linkedReport.sessionIds.push(createdGroup.sessionId);
-            await linkedReport.save();
+            // Check if the report has already a SessionID available
+            if (linkedReport.sessionIds.indexOf(args.groupInput.sessionId) == -1) {
+                linkedReport.sessionIds.push(createdGroup.sessionId);
+                await linkedReport.save();
+            }
 
             return createdGroup;
 
