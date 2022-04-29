@@ -4,23 +4,23 @@ const Schema = mongoose.Schema;
 const defectSchema = new Schema({
     issueKey: {
         type: String,
-        required: true
+        required: false
     },
     status: {
         type: String,
-        required: true
+        required: false
     },
     priority: {
         type: String,
-        required: true
+        required: false
     },
     severity: {
         type: String,
-        required: true
+        required: false
     },
     projectKey: {
         type: String,
-        required: true
+        required: false
     },
     issueType: {
         type: String,
@@ -28,23 +28,23 @@ const defectSchema = new Schema({
     },
     created: {
         type: String,
-        required: true
+        required: false
     },
     assignee: {
         type: String,
-        required: true
+        required: false
     },
     digitalService: {
         type: String,
-        required: true
+        required: false
     },
     summary: {
         type: String,
-        required: true
+        required: false
     },
     description: {
         type: String,
-        required: true
+        required: false
     },
     linkedReport: { 
         type: Schema.Types.ObjectId,

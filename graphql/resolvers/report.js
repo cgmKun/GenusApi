@@ -54,8 +54,8 @@ module.exports = {
             // Response
             let createdReport = transformReport(existingReport);
 
-            //Fetch related Defects
-            await Defect.deleteMany({ _id: { $in: existingReport.defects}});
+            //Delete related components to the report
+            await Defect.deleteMany({ linkedReport: existingReport.id });
             await Group.deleteMany({ linkedReport: existingReport.id , sessionId: {$in: existingReport.sessionIds}});
             await Report.deleteOne({ _id: args.reportId});
 

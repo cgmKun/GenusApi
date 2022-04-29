@@ -11,18 +11,18 @@ module.exports = buildSchema(`
     }
 
     type Defect {
-        _id: ID!
-        issueKey: String!
-        status: String!
-        priority: String!
-        severity: String!
-        projectKey: String!
-        issueType: String!
-        created: String!
-        assignee: String!
-        digitalService: String!
-        summary: String!
-        description: String!
+        _id: ID
+        issueKey: String
+        status: String
+        priority: String
+        severity: String
+        projectKey: String
+        issueType: String
+        created: String
+        assignee: String
+        digitalService: String
+        summary: String
+        description: String
         linkedReport: Report!
     }
 
@@ -44,17 +44,17 @@ module.exports = buildSchema(`
     }
 
     input DefectInput {
-        issueKey: String!
-        status: String!
-        priority: String!
-        severity: String!
-        projectKey: String!
-        issueType: String!
-        created: String!
-        assignee: String!
-        digitalService: String!
-        summary: String!
-        description: String!
+        issueKey: String
+        status: String
+        priority: String
+        severity: String
+        projectKey: String
+        issueType: String
+        created: String
+        assignee: String
+        digitalService: String
+        summary: String
+        description: String
         linkedReport: ID!
     }
 
