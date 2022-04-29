@@ -81,11 +81,9 @@ module.exports = {
         })
 
         try {
-            let createdDefect;
-
             const results = defects.map(async defect => {
                 const result = await defect.save();
-                createdDefect = result;
+                const createdDefect = result;
                 const linkedReport = await Report.findById(result.linkedReport);
 
                 if(!linkedReport) { 
