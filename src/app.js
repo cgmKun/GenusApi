@@ -7,7 +7,8 @@ const graphqlSchema = require('../graphql/schema.js')
 const graphqlResolvers = require('../graphql/resolvers/resolver.js')
 
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: "50mb"}));
+app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

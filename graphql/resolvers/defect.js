@@ -61,5 +61,46 @@ module.exports = {
             console.log(err);
             throw err;
         }
+    },
+    createDefects: async args => {
+        const defects = args.defects.map(defect => {
+            return new Defect({
+                issueKey: defect.issueKey,
+                status: defect.status,
+                priority: defect.priority,
+                severity: defect.severity,
+                projectKey: defect.projectKey,
+                issueType: defect.issueType,
+                created: defect.created,
+                assignee: defect.assignee,
+                digitalService: defect.digitalService,
+                summary: defect.summary,
+                description: defect.description,
+                linkedReport: defect.linkedReport
+            });
+        })
+
+        try {
+            let createdDefect;
+
+            const results = defects.map(async defect => {
+                const result = await defect.save();
+                createdDefect = result;
+                const linkedReport = await Report.findById(result.linkedReport);
+
+                if(!linkedReport) { 
+                    throw new Error('Report not found')
+                }
+
+                linkedReport.defects.push(createdDefect);
+                await linkedReport.save();
+                return createdDefect;
+            });
+
+            return results;
+
+        } catch (err) {
+            throw err;
+        }
     }
 };
