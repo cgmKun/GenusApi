@@ -74,6 +74,7 @@ module.exports = buildSchema(`
 
     type RootMutation {
         createDefect(defectInput: DefectInput): Defect
+        createDefects(defects: [DefectInput]): [Defect]
         createReport(reportInput: ReportInput): Report
         deleteReport(reportId: ID!): Report
         createGroup(groupInput: GroupInput): Group

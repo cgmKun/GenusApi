@@ -1,6 +1,5 @@
 const Defect = require('../../models/defect.js');
 const Report = require('../../models/report.js');
-const Group = require('../../models/group.js');
 
 const defects = async defectIds => {
     try {
