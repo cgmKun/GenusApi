@@ -28,7 +28,7 @@ app.use('/api', graphqlHTTP({
 }));
 
 // MongoDB link
-mongoose.connect(`mongodb://localhost:27017/${process.env.MONGO_DB}`).then(() => {
+mongoose.connect(`mongodb+srv://monte:100701@genus.7qbia.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`).then(() => {
     app.listen(8000, () => console.log('Listening on port 8000...'));
 }).catch(err => {
     console.log(err);
