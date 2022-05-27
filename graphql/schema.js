@@ -76,6 +76,7 @@ module.exports = buildSchema(`
         createDefect(defectInput: DefectInput): Defect
         createDefects(defects: [DefectInput]): [Defect]
         createReport(reportInput: ReportInput): Report
+        classifyReport(reportId: ID!, sessionId: String!, clusters: String!): Boolean
         deleteReport(reportId: ID!): Report
         createGroup(groupInput: GroupInput): Group
     }

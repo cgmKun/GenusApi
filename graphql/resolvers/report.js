@@ -2,6 +2,7 @@ const Group = require('../../models/group.js');
 const Report = require('../../models/report.js');
 const Defect = require('../../models/defect.js');
 const { transformReport } = require('./resolverHelpers.js');
+const { PythonShell } = require('python-shell')
 
 module.exports = {
     reports: async () => {
@@ -60,6 +61,28 @@ module.exports = {
             await Report.deleteOne({ _id: args.reportId});
 
             return createdReport;
+
+        } catch (err) {
+            throw err;
+        }
+    },
+    classifyReport: async args => {
+        try {
+            let options = {
+                mode: 'text',
+                pythonOptions: ['-u'],
+                args: [args.reportId, args.clusters]
+            }
+
+            PythonShell.run('../GenusML/main.py', options, function (err, result){
+                if (err) {
+                    throw err;
+                }
+                
+                console.log('result: ', result.toString());
+            });
+
+            return true;
 
         } catch (err) {
             throw err;
