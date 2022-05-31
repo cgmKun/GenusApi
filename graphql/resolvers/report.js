@@ -2,6 +2,7 @@ const Group = require('../../models/group.js');
 const Report = require('../../models/report.js');
 const Defect = require('../../models/defect.js');
 const { transformReport } = require('./resolverHelpers.js');
+const Moment = require('moment')
 const { PythonShell } = require('python-shell')
 
 module.exports = {
@@ -71,7 +72,7 @@ module.exports = {
             let options = {
                 mode: 'text',
                 pythonOptions: ['-u'],
-                args: [args.reportId, args.clusters]
+                args: [args.reportId, args.sessionId, args.clusters, Moment().format('DD/MM/YYYY')]
             }
 
             PythonShell.run('../GenusML/main.py', options, function (err, result){
