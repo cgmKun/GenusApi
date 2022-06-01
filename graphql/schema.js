@@ -7,6 +7,7 @@ module.exports = buildSchema(`
         sessionId: String!
         submitDate: String!
         defects: [Defect!]
+        keywords: [String!]
         linkedReport: Report!
     }
 
@@ -40,6 +41,7 @@ module.exports = buildSchema(`
         sessionId: String!
         submitDate: String!
         defects: [ID!]!
+        keywords: [String!]!
         linkedReport: ID!
     }
 
@@ -76,6 +78,7 @@ module.exports = buildSchema(`
         createDefect(defectInput: DefectInput): Defect
         createDefects(defects: [DefectInput]): [Defect]
         createReport(reportInput: ReportInput): Report
+        classifyReport(reportId: ID!, sessionId: String!, clusters: String!): Boolean
         deleteReport(reportId: ID!): Report
         createGroup(groupInput: GroupInput): Group
     }

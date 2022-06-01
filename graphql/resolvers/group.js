@@ -33,6 +33,7 @@ module.exports = {
                 sessionId: args.groupInput.sessionId,
                 submitDate: args.groupInput.submitDate,
                 defects: fetchedDefects,
+                keywords: args.groupInput.keywords,
                 linkedReport: fetchedReport
             });
             let createdGroup
