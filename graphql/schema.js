@@ -7,6 +7,7 @@ module.exports = buildSchema(`
         sessionId: String!
         submitDate: String!
         defects: [Defect!]
+        keywords: [String!]
         linkedReport: Report!
     }
 
@@ -40,6 +41,7 @@ module.exports = buildSchema(`
         sessionId: String!
         submitDate: String!
         defects: [ID!]!
+        keywords: [String!]!
         linkedReport: ID!
     }
 

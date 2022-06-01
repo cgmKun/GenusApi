@@ -21,6 +21,12 @@ const groupSchema = new Schema(
                 ref: 'Defect'
             }
         ],
+        keywords: [
+            {
+                type: String,
+                required: true
+            }
+        ],
         linkedReport: { 
             type: Schema.Types.ObjectId,
             ref: 'Report'
